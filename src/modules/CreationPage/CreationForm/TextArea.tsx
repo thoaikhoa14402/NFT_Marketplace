@@ -11,12 +11,13 @@ const TextArea = (props: TextAreaProps) => {
 
   return (
     <textarea
-      className={classNames("flex-grow resize-none rounded border px-2 py-1", {
+      className={classNames("flex-grow rounded border px-2 py-1 text-sm", {
         "border-gray-300": !error,
         "border-red-500": error,
       })}
       placeholder="description"
       value={value}
+      rows={5}
       onChange={(e) => setValue(e.target.value)}
       {...props}
     />

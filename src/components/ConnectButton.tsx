@@ -1,18 +1,23 @@
 import useSigner from "state/signer";
 import AddressAvatar from "./AddressAvatar";
+import { Button } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWallet } from "@fortawesome/free-solid-svg-icons";
 
 const ConnectButton = () => {
   const { address, loading, connectWallet } = useSigner();
 
   if (address) return <AddressAvatar address={address} />;
+
   return (
-    <button
-      className="flex h-10 w-36 items-center justify-center rounded-full bg-black px-4 font-semibold text-white"
+    <Button
+      type="primary"
+      shape="circle"
       onClick={connectWallet}
-      disabled={loading}
+      loading={loading}
     >
-      {loading ? "busy..." : "Connect wallet"}
-    </button>
+      {loading ? "" : <FontAwesomeIcon icon={faWallet} />}
+    </Button>
   );
 };
 

@@ -3,6 +3,7 @@ import { readFileSync, unlinkSync } from "fs";
 import { NextApiHandler } from "next";
 import { File, NFTStorage } from "nft.storage";
 import { tmpdir } from "os";
+import mime from 'mime';
 
 const client = new NFTStorage({ token: `${process.env.NFT_STORAGE_KEY}` });
 

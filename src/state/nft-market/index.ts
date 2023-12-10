@@ -4,10 +4,11 @@ import { CreationValues } from "modules/CreationPage/CreationForm";
 import useSigner from "state/signer";
 import NFT_MARKET from "../../../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 import { NFT_MARKET_ADDRESS } from "./config";
-import { NFT } from "./interfaces";
+import { NFTTransfer } from "./interfaces";
 import useListedNFTs from "./useListedNFTs";
 import useOwnedListedNFTs from "./useOwnedListedNFTs";
 import useOwnedNFTs from "./useOwnedNFTs";
+import axios from "axios";
 
 const useNFTMarket = () => {
   const { signer } = useSigner();
@@ -23,12 +24,13 @@ const useNFTMarket = () => {
       data.append("name", values.name);
       data.append("description", values.description);
       data.append("image", values.image!);
-      const response = await fetch("/api/nft-storage", {
-        method: "POST",
-        body: data,
-      });
+      const response = await axios.post("/api/nft-storage", data);
+
       if (response.status == 201) {
-        const json = await response.json();
+        const json = await response.data;
+
+        console.log(json);
+
         const transaction: TransactionResponse = await nftMarket.createNFT(
           json.uri
         );
@@ -54,8 +56,8 @@ const useNFTMarket = () => {
     await transaction.wait();
   };
 
-  const buyNFT = async (nft: NFT) => {
-    const transaction: TransactionResponse = await nftMarket.buyNFT(nft.id, {
+  const buyNFT = async (nft: NFTTransfer) => {
+    const transaction: TransactionResponse = await nftMarket.buyNFT(nft.tokenID, {
       value: ethers.utils.parseEther(nft.price),
     });
     await transaction.wait();

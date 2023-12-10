@@ -5,9 +5,9 @@ import NavBar from "./NavBar";
 const TopBar = () => {
   return (
     <div className="fixed top-0 w-full">
-      <div className="relative flex w-full items-center px-4  py-4 shadow">
+      <div className="relative flex w-full items-center px-4 py-3 shadow-sm">
         <Link href="/">
-          <a className="text-lg font-bold">Marketplace</a>
+        <span className="text-lg font-semibold">P2P Marketplace</span>
         </Link>
         <div className="flex-grow">
           <NavBar />

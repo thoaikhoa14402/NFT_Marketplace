@@ -5,8 +5,8 @@ const SubmitButton = () => {
   const { isSubmitting, submitForm } = useFormikContext();
 
   return (
-    <Button loading={isSubmitting} onClick={submitForm}>
-      Create
+    <Button loading={isSubmitting} onClick={submitForm} className="bg-primary text-white p-4 font-semibold rounded-md">
+      MINT NFT
     </Button>
   );
 };

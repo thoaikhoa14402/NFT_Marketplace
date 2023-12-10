@@ -30,7 +30,7 @@ const OwnedPage = () => {
           {/* Owned NFTs*/}
           <div className="flex flex-wrap">
             {ownedNFTs?.map((nft) => (
-              <NFTCard nft={nft} className="mr-2 mb-2" key={nft.id} />
+              <NFTCard nft={nft} className="mr-2 mb-2" key={nft.tokenID} />
             ))}
           </div>
           {/* Divider, only shown if there are owned listed NFTs*/}
@@ -46,7 +46,7 @@ const OwnedPage = () => {
           {/* Owned Listed NFTs*/}
           <div className="flex flex-wrap">
             {ownedListedNFTs?.map((nft) => (
-              <NFTCard nft={nft} className="mr-2 mb-2" key={nft.id} />
+              <NFTCard nft={nft} className="mr-2 mb-2" key={nft.tokenID} />
             ))}
           </div>
         </>

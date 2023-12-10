@@ -35,11 +35,12 @@ const CreationForm = ({ onSubmit }: CreationFormProps) => {
       validateOnMount={false}
       onSubmit={onSubmit}
     >
-      <Form className="flex">
-        <ImagePicker name="image" className="mr-4" />
-        <div className="flex w-64 flex-col space-y-1">
-          <FormikInput name="name" placeholder="name" />
-          <TextArea name="description" placeholder="description..." />
+      <Form className="flex flex-col w-full max-w-xl mx-auto gap-5 py-10">
+        <div className="text-2xl text-center mb-8 font-semibold text-primary">Create your NFT</div>
+        <ImagePicker name="image" />
+        <div className="flex w-full flex-col space-y-1 gap-2">
+          <FormikInput name="name" placeholder="NFT Name" className="text-sm" />
+          <TextArea name="description" placeholder="Description..." />
           <SubmitButton />
         </div>
       </Form>

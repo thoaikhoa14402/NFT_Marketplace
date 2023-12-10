@@ -4,11 +4,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useNFTMarket from "state/nft-market";
-import { NFT } from "state/nft-market/interfaces";
+import { NFTTransfer } from "state/nft-market/interfaces";
 import useSigner from "state/signer";
 import { ipfsToHTTPS } from "../helpers";
 import AddressAvatar from "./AddressAvatar";
 import SellPopup from "./SellPopup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 
 type NFTMetadata = {
   name: string;
@@ -17,7 +19,7 @@ type NFTMetadata = {
 };
 
 type NFTCardProps = {
-  nft: NFT;
+  nft: NFTTransfer;
   className?: string;
 };
 
@@ -78,7 +80,7 @@ const NFTCard = (props: NFTCardProps) => {
   const onCancelClicked = async () => {
     setLoading(true);
     try {
-      await cancelListing(nft.id);
+      await cancelListing(nft.tokenID);
       toast.success(
         "You canceled this listing. Changes will be reflected shortly."
       );
@@ -92,8 +94,9 @@ const NFTCard = (props: NFTCardProps) => {
   const onSellConfirmed = async (price: BigNumber) => {
     setSellPopupOpen(false);
     setLoading(true);
+    console.log(nft);
     try {
-      await listNFT(nft.id, price);
+      await listNFT(nft.tokenID, price);
       toast.success(
         "You listed this NFT for sale. Changes will be reflected shortly."
       );
@@ -110,52 +113,59 @@ const NFTCard = (props: NFTCardProps) => {
   return (
     <div
       className={classNames(
-        "flex w-72 flex-shrink-0 flex-col overflow-hidden rounded-xl border font-semibold shadow-sm",
+        "flex w-80 flex-shrink-0 flex-col overflow-hidden rounded-xl border border-slate-200 p-4 font-semibold gap-2 ",
         className
       )}
     >
-      {meta ? (
-        <img
-          src={meta?.imageURL}
-          alt={meta?.name}
-          className="h-80 w-full object-cover object-center"
-        />
-      ) : (
-        <div className="flex h-80 w-full items-center justify-center">
-          loading...
+      <div className="mx-auto h-44 w-full overflow-hidden rounded-md border border-gray-100">
+        {meta ? (
+          <img
+            src={meta?.imageURL}
+            alt={meta?.name}
+            className="h-full w-full object-contain object-center transition-all duration-300 ease-in-out hover:scale-110"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            loading...
+          </div>
+        )}
+      </div>
+      <div className="rounded-md">
+        <div className="flex flex-col gap-2 py-3 pb-0">
+          <p className="text-md text-center">{meta?.name ?? "..."}</p>
+          <span className="text-xs font-normal border-b py-3 pt-0">
+            {meta?.description ?? "..."}
+          </span>
+          <div className="flex items-center justify-between py-3 font-medium bg-slate-50 px-4 rounded-md">
+            <AddressAvatar address={nft.owner} />
+            <span>
+              {forSale && (
+                <span className="text-sm flex gap-2 items-center">
+                  {nft.price} <FontAwesomeIcon icon={faEthereum} />
+                </span>
+              )}
+            </span>
+          </div>
         </div>
-      )}
-      <div className="flex flex-col p-4">
-        <p className="text-lg">{meta?.name ?? "..."}</p>
-        <span className="text-sm font-normal">
-          {meta?.description ?? "..."}
-        </span>
-        <AddressAvatar address={nft.owner} />
       </div>
       <button
-        className="group flex h-16 items-center justify-center bg-black text-lg font-semibold text-white"
-        onClick={onButtonClick}
-        disabled={loading}
-      >
-        {loading && "Busy..."}
-        {!loading && (
-          <>
-            {!forSale && "SELL"}
-            {forSale && owned && (
-              <>
-                <span className="group-hover:hidden">{nft.price} ETH</span>
-                <span className="hidden group-hover:inline">CANCEL</span>
-              </>
-            )}
-            {forSale && !owned && (
-              <>
-                <span className="group-hover:hidden">{nft.price} ETH</span>
-                <span className="hidden group-hover:inline">BUY</span>
-              </>
-            )}
-          </>
-        )}
-      </button>
+          className="group flex h-12 items-center justify-center rounded-md bg-primary text-lg font-semibold text-white w-full transition-all duration-200 hover:bg-opacity-90"
+          onClick={onButtonClick}
+          disabled={loading}
+        >
+          {loading && "Busy..."}
+          {!loading && (
+            <>
+              {!forSale && "SELL"}
+              {forSale && owned && (
+                <span>CANCEL</span>
+              )}
+              {forSale && !owned && (
+                <span>BUY</span>
+              )}
+            </>
+          )}
+        </button>
       <SellPopup
         open={sellPopupOpen}
         onClose={() => setSellPopupOpen(false)}

@@ -1,4 +1,5 @@
-import { UploadIcon } from "@heroicons/react/solid";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { useField } from "formik";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -17,6 +18,7 @@ const ImagePicker = ({ name, className }: ImagePickerProps) => {
     if (value) {
       const newURL = URL.createObjectURL(value);
       setURL(newURL);
+
       return () => URL.revokeObjectURL(newURL);
     } else setURL(undefined);
   }, [value]);
@@ -31,7 +33,7 @@ const ImagePicker = ({ name, className }: ImagePickerProps) => {
     <button
       className={classNames(
         className,
-        "group flex h-96 w-72 items-center justify-center rounded-xl border",
+        "group flex h-60 w-60 mx-auto items-center justify-center rounded-xl border border-dashed border-slate-300 hover:border-primary mb-8",
         { "border-black": !error, "border-red-500": error }
       )}
       style={style}
@@ -51,8 +53,9 @@ const ImagePicker = ({ name, className }: ImagePickerProps) => {
         }}
       />
       {!url && (
-        <div className="flex items-center text-lg font-semibold">
-          <UploadIcon className="mr-2 h-9 w-9" />
+        <div className="flex items-center text-lg text-gray-400">
+          {/* <UploadIcon className="mr-2 h-9 w-9" /> */}
+          <FontAwesomeIcon icon={faImage} size="xl" />&nbsp;
           Upload
         </div>
       )}

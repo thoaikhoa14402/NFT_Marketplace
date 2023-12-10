@@ -27,8 +27,8 @@ const NavBarItem = (props: NavbarItemProps) => {
   return (
     <Link href={href}>
       <a
-        className={classNames("rounded-lg px-4 py-2 font-semibold", {
-          "bg-black text-white": isActive,
+        className={classNames("rounded-md px-4 py-2 font-medium", {
+          "bg-primary text-white": isActive,
         })}
       >
         {children}

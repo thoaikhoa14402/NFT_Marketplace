@@ -8,8 +8,8 @@
 // ====================================================
 
 export interface GetOwnedNFTs_nfts {
-  __typename: "NFT";
-  id: string;
+  __typename: "NFTTransfer";
+  tokenID: string;
   from: any;
   to: any;
   tokenURI: string;
@@ -17,7 +17,7 @@ export interface GetOwnedNFTs_nfts {
 }
 
 export interface GetOwnedNFTs {
-  nfts: GetOwnedNFTs_nfts[];
+  nfttransfers: GetOwnedNFTs_nfts[];
 }
 
 export interface GetOwnedNFTsVariables {
