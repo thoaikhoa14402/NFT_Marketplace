@@ -45,7 +45,7 @@ const SellPopup = (props: SellPopupProps) => {
             error={error}
           />
         </div>
-        <Button onClick={onConfirm}>CONFIRM</Button>
+        <Button className="bg-primary text-white p-3 px-5 rounded-md font-semibold" onClick={onConfirm}>CONFIRM</Button>
       </div>
     </CustomDialog>
   );
