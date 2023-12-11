@@ -5,12 +5,12 @@ import useSigner from "state/signer";
 
 const HomePage = () => {
   const { signer } = useSigner();
-  const { showlisted } = useNFTMarket();
+  const { listedNFTs } = useNFTMarket();
 
   const notConnected = !signer;
-  const loading = !showlisted;
-  const empty = showlisted && showlisted.length == 0;
-  const loaded = showlisted && showlisted.length > 0;
+  const loading = !listedNFTs;
+  const empty = listedNFTs && listedNFTs.length == 0;
+  const loaded = listedNFTs && listedNFTs.length > 0;
 
   return (
     <div className="flex w-full flex-col">
@@ -19,7 +19,7 @@ const HomePage = () => {
       {empty && <EmptyState>Nothing to show here</EmptyState>}
       {loaded && (
         <div className="flex flex-wrap">
-          {showlisted?.map((nft) => (
+          {listedNFTs?.map((nft) => (
             <NFTCard nft={nft} className="mr-2 mb-2" key={nft.tokenID} />
           ))}
         </div>
