@@ -7,7 +7,7 @@ const TopBar = () => {
     <div className="fixed top-0 w-full">
       <div className="relative flex w-full items-center px-4 py-3 shadow-sm">
         <Link href="/">
-        <span className="text-lg font-semibold">P2P Marketplace</span>
+        <span className="text-lg font-semibold">NFT Marketplace</span>
         </Link>
         <div className="flex-grow">
           <NavBar />

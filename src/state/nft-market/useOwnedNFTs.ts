@@ -13,13 +13,13 @@ const useOwnedNFTs = () => {
     GET_OWNED_NFTS,
     { variables: { owner: address ?? "" }, skip: !address }
   );
-  const ownedNFTs = [...new Set(data?.nfttransfers.map(el => JSON.stringify(parseRawNFT(el))))].map(el => JSON.parse(el));
+  const ownedNFTs = data?.nfttransfers.map(parseRawNFT);
   return { ownedNFTs };
 };
 
 const GET_OWNED_NFTS = gql`
   query GetOwnedNFTs($owner: String!) {
-    nfttransfers(where: { to: $owner, from_not: $owner }) {
+    nfttransfers(where: { to: $owner }) {
       tokenID
       from
       to

@@ -1,4 +1,4 @@
-type NFTTransfer @entity(immutable: true) {
+type NFTTransfer @entity(immutable: false) {
   id: Bytes!
   tokenID: BigInt! # uint256
   from: Bytes! # address

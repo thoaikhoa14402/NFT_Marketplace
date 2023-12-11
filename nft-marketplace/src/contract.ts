@@ -7,13 +7,21 @@ import {
 } from "../generated/schema"
 
 import {
+  Bytes,
+} from "@graphprotocol/graph-ts";
+
+import {
   Contract
 } from "../generated/Contract/Contract"
 
+function stringToBytes(inputString: string): Bytes {
+  let bytesValue: Bytes = Bytes.fromUTF8(inputString);
+  
+  return bytesValue;
+}
+
 export function handleNFTTransfer(event: NFTTransferEvent): void {
-  let entity = new NFTTransfer(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
+  let entity = new NFTTransfer(stringToBytes(event.params.tokenID.toString()))
   entity.tokenID = event.params.tokenID
   entity.from = event.params.from
   entity.to = event.params.to
