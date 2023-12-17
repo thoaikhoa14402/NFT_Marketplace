@@ -7,7 +7,7 @@ const GOERLI_URL = process.env.GOERLI_URL as string;
 const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 const ETHERSCAN_KEY = process.env.ETHERSCAN_API_KEY as string;
 
-const config: HardhatUserConfig = {
+const config: any = {
   solidity: "0.8.11",
   networks: {
     goerli: {
